@@ -12,8 +12,9 @@
 // `using namespace clock64;` or use a `clock64::` prefix on each call.
 namespace ok_clock64 {
 
-// This wrapper is the same for all platforms
-double secsd() { return micros64() * 1e-6; }
+int64_t millis64();
+int64_t micros64();
+OKC64_INLINE double secsd() { return micros64() * 1e-6; }  // Universal
 
 #if defined(ARDUINO_ARCH_ESP32)
 
@@ -35,14 +36,12 @@ double secsd() { return micros64() * 1e-6; }
   //
 
   OKC64_INLINE int64_t IRAM_ATTR micros64() { return ::micros64(); }
-  int64_t millis64();
   #define OKC64_ESP8266_MILLIS64  // activate code in ok_clock64.cpp
 
 #elif defined(ARDUINO_NRF52_ADAFRUIT)
 
   //
   // Adafruit's nRF52 core based on FreeRTOS
-  // has 
   // NOTE: if dwt_enable() is used, these will diverge from micros().
   //
 
@@ -98,7 +97,6 @@ double secsd() { return micros64() * 1e-6; }
 
 #else
 
-  int64_t millis64();
   #define OKC64_GENERIC_MILLIS64 1
 
   OKC64_INLINE int64_t micros64() {

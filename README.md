@@ -22,7 +22,7 @@ This implementation does NOT support
 
 ## Usage example
 
-```
+```cpp
 #include <ok_clock64.h>
 
 void setup() {
@@ -58,4 +58,14 @@ Returns an `int64_t` with microseconds since boot.
 
 Returns a `double` with seconds since boot, in microsecond precision.
 
-## Platform compatibility notes
+## Platform implementation notes
+
+| platform | notable caveats | micros64 | millis64 |
+| --- | --- | --- | --- |
+| [ESP32](https://docs.espressif.com/projects/arduino-esp32/) | none | `esp_timer_get_time()` | `micros64()/1000` |
+| [ESP8266](https://arduino-esp8266.readthedocs.io/) | none | core `micros64()` | specialized div-1000 |
+| nRF52, [Adafruit&nbsp;core](https://github.com/nRF52-Arduino/nRF52_Arduino) | [like&nbsp;`micros()`](https://github.com/adafruit/Adafruit_nRF52_Arduino/issues/451), `micros64()` steps by ~970us; `enable_dwt()` improves `micros()` (with messy rollover) but not `micros64()` | FreeRTOS ticks | FreeRTOS ticks |
+| RP2xxx, [arduino-pico](https://arduino-pico.readthedocs.io/) or [mbed core](https://github.com/arduino/ArduinoCore-mbed) (not&nbsp;Zephyr) | none | `time_us_64()` | `micros64()/1000` |
+| [Arduino&nbsp;on&nbsp;Zephyr](https://github.com/arduino/ArduinoCore-zephyr), w/ 64-bit cycle counter (STM32, RP2040, Renesas) | none | `k_cycle_get_64()` | `k_uptime_get()` |
+| [Arduino&nbsp;on&nbsp;Zephyr](https://github.com/arduino/ArduinoCore-zephyr), no 64-bit cycle counter (nRF52, SAMD11, MGM240) | [like&nbsp;`micros()`](https://github.com/arduino/ArduinoCore-zephyr/blob/4fe592f214bd657159067e5517e7a5b596fc2cf8/cores/arduino/zephyrCommon.cpp#L17), `micros64()` steps by ~30us | `k_uptime_ticks()` | `k_uptime_get()` |
+| Other | no more than 24 days may elapse between `millis64()` and/or `micros64()` calls | `micros()` with high bits from `millis64()` | `millis()` with rollover sensing |
