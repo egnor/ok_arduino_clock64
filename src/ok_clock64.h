@@ -36,7 +36,7 @@ OKC64_INLINE double secsd() { return micros64() * 1e-6; }  // Universal
   //
 
   OKC64_INLINE int64_t IRAM_ATTR micros64() { return ::micros64(); }
-  #define OKC64_ESP8266_MILLIS64  // activate code in ok_clock64.cpp
+  #define OKC64_ESP8266_MILLIS64 1  // activate code in ok_clock64.cpp
 
 #elif defined(ARDUINO_NRF52_ADAFRUIT)
 

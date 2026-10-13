@@ -15,7 +15,7 @@ dependencies = [
 [tool.pytest]
 addopts = ["--import-mode=importlib"]
 asyncio_mode = "auto"
-log_level = "INFO"
+log_level = "CRITICAL"                # logs go to stdout, see conftest.py
 norecursedirs = ["*.tmp"]
 strict = true
 
