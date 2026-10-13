@@ -4,6 +4,8 @@
 
 // Most of clock64.h is inline in the header; exceptions live here.
 
+namespace ok_clock64 {
+
 #if OKC64_ESP8266_MILLIS64
 
   // Long enough to be put out-of-line. IRAM_ATTR to be ISR-safe.
@@ -41,3 +43,5 @@
   }
 
 #endif  // OKC64_GENERIC_MILLIS64
+
+}  // namespace ok_clock64

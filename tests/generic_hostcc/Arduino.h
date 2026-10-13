@@ -4,5 +4,5 @@
 
 #include <stdint.h>
 
-uint32_t millis();
-uint32_t micros();
+unsigned long millis();
+unsigned long micros();

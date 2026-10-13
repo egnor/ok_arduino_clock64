@@ -8,11 +8,14 @@ requires-python = ">=3.12"
 
 dependencies = [
   "ok-logging-setup>=0.17",
-  "ok-subprocess-runner>=0.5",
   "pytest>=9.1.1",
+  "pytest-asyncio>=1.4.0",
 ]
 
 [tool.pytest]
+addopts = ["--import-mode=importlib"]
+asyncio_mode = "auto"
+log_level = "INFO"
 norecursedirs = ["*.tmp"]
 strict = true
 
