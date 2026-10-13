@@ -7,9 +7,13 @@ version = "0.1"
 requires-python = ">=3.12"
 
 dependencies = [
+  "adafruit-nrfutil>=0.5.3.post16",
   "ok-logging-setup>=0.17",
+  "ok-subprocess-runner>=0.5",
   "pytest>=9.1.1",
   "pytest-asyncio>=1.4.0",
+  "pytest-xdist>=3.8.0",
+  "pyyaml>=6.0.3",
 ]
 
 [tool.pytest]

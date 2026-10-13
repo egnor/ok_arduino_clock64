@@ -90,8 +90,6 @@ OKC64_INLINE double secsd() { return micros64() * 1e-6; }  // Universal
   // (the Zephyr core doesn't export Pico-SDK symbols; it's handled above)
   //
 
-  #include <pico/stdlib.h>
-
   OKC64_INLINE int64_t micros64() { return time_us_64(); }
   OKC64_INLINE int64_t millis64() { return micros64() / 1000; }
 

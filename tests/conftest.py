@@ -21,7 +21,7 @@ class OkTestChecker:
         """
 
         text = (line.decode() if isinstance(line, bytes) else line).strip()
-        logging.info("%s", text)
+        logging.info("· %s", text)
         assert "#ABORT-TESTS#" not in text
         if "#BEGIN-TESTS#" in text:
             assert not self.started, "Extra #BEGIN-TESTS#: {text}"

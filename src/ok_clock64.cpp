@@ -10,8 +10,9 @@ namespace ok_clock64 {
 
   // Long enough to be put out-of-line. IRAM_ATTR to be ISR-safe.
   int64_t IRAM_ATTR millis64() {
-    // The same logic as core millis(), without truncation to 32 bits:
-    // https://raw.githubusercontent.com/esp8266/Arduino/master/cores/esp8266/core_esp8266_wiring.cpp
+    // The same logic as core millis(): (but without truncation to 32 bits)
+    // https://github.com/esp8266/Arduino/blob/master/cores/esp8266/core_esp8266_wiring.cpp
+    // NOTE: This is only valid up to 0x00400000.00000000 (570 years)
     uint64_t const magic_hi = 0x00418937, magic_lo = 0x4bc6a7f0;
     uint64_t const us = ::micros64();
     uint32_t const us_lo = (uint32_t) us, us_hi = (uint32_t)(us >> 32);

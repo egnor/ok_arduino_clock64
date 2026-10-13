@@ -4,14 +4,14 @@ Implementations of `millis64()` and `micros64()` which return `int64_t` and neve
 
 First, consider these alternatives:
 
-- [millis64](https://github.com/RobTillaart/millis64) - another such library, platform-independent, with fewer guarantees
+- [millis64](https://github.com/RobTillaart/millis64) - another such library, simpler, with fewer guarantees
 - [esp_timer_get_time()](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/esp_timer.html#esp__timer_8h_1ab38881d22858adab666843cee4ba6589) (ESP32), [micros64()](https://github.com/esp8266/Arduino/blob/1475ed7d49fef5c5167061ac76abb6eced9abda5/cores/esp8266/core_esp8266_features.h#L103) (ESP8266), [time_us_64()](https://www.raspberrypi.com/documentation/pico-sdk/hardware.html#group_hardware_timer_1ga7bbcd996dbd3dd4adc03a80272fb2fc3) (RP2xxx), [k_uptime_get()](https://docs.zephyrproject.org/latest/doxygen/html/group__clock__apis.html#gae3e992cd3257c23d5b26d765fcbb2b69) (Zephyr)
 - [millis_64()](https://api-docs.esphome.io/time__64_8h_source) from ESPHome's HAL
 
 This implementation has these features
 
 - Uses hardware timers where possible
-- Otherwise uses rollover-sensing (requires calls at least every 49 days)
+- Otherwise uses rollover-sensing (requires calls at least every ~24 days)
 - Calls are thread-safe, multicore-safe and ISR-safe
 - Overhead is minimized
 
@@ -68,4 +68,4 @@ Returns a `double` with seconds since boot, in microsecond precision.
 | RP2xxx, [arduino-pico](https://arduino-pico.readthedocs.io/) or [mbed core](https://github.com/arduino/ArduinoCore-mbed) (not&nbsp;Zephyr) | none | `time_us_64()` | `micros64()/1000` |
 | [Arduino&nbsp;on&nbsp;Zephyr](https://github.com/arduino/ArduinoCore-zephyr), w/ 64-bit cycle counter (STM32, RP2040, Renesas) | none | `k_cycle_get_64()` | `k_uptime_get()` |
 | [Arduino&nbsp;on&nbsp;Zephyr](https://github.com/arduino/ArduinoCore-zephyr), no 64-bit cycle counter (nRF52, SAMD11, MGM240) | [like&nbsp;`micros()`](https://github.com/arduino/ArduinoCore-zephyr/blob/4fe592f214bd657159067e5517e7a5b596fc2cf8/cores/arduino/zephyrCommon.cpp#L17), `micros64()` steps by ~30us | `k_uptime_ticks()` | `k_uptime_get()` |
-| Other | no more than 24 days may elapse between `millis64()` and/or `micros64()` calls | `micros()` with high bits from `millis64()` | `millis()` with rollover sensing |
+| Other | no more than 24 days may elapse between calls to `millis64()` or `micros64()`; base `millis()` and `micros()` must stay synced within ~30min (true on most platforms) | `micros()` with high bits from `millis64()` | `millis()` with rollover sensing |

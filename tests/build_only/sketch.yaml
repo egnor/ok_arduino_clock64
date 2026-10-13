@@ -1,0 +1,68 @@
+profiles:
+  esp32:
+    fqbn: esp32:esp32:esp32
+    platforms:
+      - platform: esp32:esp32 (3.3.12)
+        platform_index_url: https://espressif.github.io/arduino-esp32/package_esp32_index.json
+    libraries:
+      - dir: ../..
+
+  esp8266:
+    fqbn: esp8266:esp8266:generic
+    platforms:
+      - platform: esp8266:esp8266 (3.1.2)
+        platform_index_url: https://arduino.esp8266.com/stable/package_esp8266com_index.json
+    libraries:
+      - dir: ../..
+
+  nrf52_adafruit:
+    fqbn: adafruit:nrf52:feather52840
+    platforms:
+      - platform: adafruit:nrf52 (1.7.0)
+        platform_index_url: https://adafruit.github.io/arduino-board-index/package_adafruit_index.json
+    libraries:
+      - dir: ../..
+
+  nrf52_mbed:
+    fqbn: arduino:mbed_nano:nano33ble
+    platforms:
+      - platform: arduino:mbed_nano (4.6.0)
+    libraries:
+      - dir: ../..
+
+  nrf52_zephyr:
+    fqbn: arduino:zephyr_main:nano33ble
+    platforms:
+      - platform: arduino:zephyr_main (1.0.0)
+    libraries:
+      - dir: ../..
+
+  rp2040_arduino_pico:
+    fqbn: rp2040:rp2040:rpipico
+    platforms:
+      - platform: rp2040:rp2040 (6.3.0)
+        platform_index_url: https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
+    libraries:
+      - dir: ../..
+
+  rp2040_mbed:
+    fqbn: arduino:mbed_rp2040:pico
+    platforms:
+      - platform: arduino:mbed_rp2040 (4.6.0)
+    libraries:
+      - dir: ../..
+
+  rp2040_zephyr:
+    fqbn: arduino:zephyr_main:nano_connect
+    platforms:
+      - platform: arduino:zephyr_main (1.0.0)
+    libraries:
+      - dir: ../..
+
+  stm32f4:
+    fqbn: STMicroelectronics:stm32:Disco:pnum=DISCO_F407VG
+    platforms:
+      - platform: STMicroelectronics:stm32 (3.0.0)
+        platform_index_url: https://github.com/stm32duino/BoardManagerFiles/raw/main/package_stmicroelectronics_index.json
+    libraries:
+      - dir: ../..

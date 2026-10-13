@@ -26,9 +26,9 @@ static void test_micros64_passthrough() {
 static void test_millis64_uses_micros64() {
   printf("#TEST# test_millis64_uses_micros64\n");
 
-  uint64_t const starts[] = { 0, 1, 1234567890123456789, 0x7FFFFFFFFFFFFFFF };
-  for (uint64_t const start : starts) {
-    for (uint64_t u = start; u < start + 2000; ++u) {
+  for (uint64_t b = 0; b < 0x0040000000000000 - 2000; b = (b + 1) * 3) {
+    printf("  %" PRIx64 " ~ +1000\n", b);
+    for (uint64_t u = b; u < b + 1000; ++u) {
       fake_micros64 = u;
       int64_t const m = ok_clock64::millis64();
       if ((uint64_t) m != (u / 1000)) {
