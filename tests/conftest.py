@@ -1,7 +1,8 @@
+import dataclasses
 import logging
 import ok_logging_setup
 import pytest
-import dataclasses
+import subprocess
 
 ok_logging_setup.install({"OK_LOGGING_OUTPUT": "stdout"})
 
