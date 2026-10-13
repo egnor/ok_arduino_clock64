@@ -35,6 +35,7 @@ namespace ok_clock64 {
 
   int64_t millis64() {
     uint32_t state_copy = state;
+    __asm__ volatile("" ::: "memory");  // read state before millis()
     uint32_t const lo = (uint32_t)millis();
     if ((state_copy ^ lo) & 0x80000000u) {
       state_copy = (state_copy ^ 0x80000000u) + (state_copy >> 31);
